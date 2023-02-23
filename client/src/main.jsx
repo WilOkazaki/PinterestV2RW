@@ -1,37 +1,35 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import './index.css'
-import {createBrowserRouter, RouterProvider} from 'react-router-dom'
-import Home from './routes/Home'
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./assets/styles/index.css";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Home from "./routes/Home";
 //import { Login } from './routes/Login'
 //import { Register } from './routes/Register'
-import Pinterest from './routes/Pinterest'
-import Upload from './routes/Upload'
+import Pinterest from "./componentes/Pinterest";
+import Upload from "./componentes/Upload";
 
-
-
-const router = createBrowserRouter ([
+const router = createBrowserRouter([
   {
-    path: '/',
+    path: "/",
     element: <Home />,
     errorElement: <h1>Error</h1>,
   },
   {
-    path: '/about',
+    path: "/about",
     element: <h1>About</h1>,
-  }, 
+  },
   {
-    path: '/Pinterest',
+    path: "/Pinterest",
     element: <Pinterest />,
   },
   {
-    path: '/Upload',
+    path: "/Upload",
     element: <Upload />,
   },
 ]);
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <RouterProvider router={router} />
-  </React.StrictMode>,
-)
+  </React.StrictMode>
+);

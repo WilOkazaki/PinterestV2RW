@@ -9,7 +9,7 @@ const router = require("./Routes/routes");
 const app = express();
 
 //Conexion a la base de datos
-const { connection } = require("./database");
+const { sequelize } = require("./database");
 
 //Settings
 app.set("port", process.env.PORT || 3030);

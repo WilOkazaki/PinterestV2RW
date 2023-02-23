@@ -1,39 +1,25 @@
-const mysql = require("mysql2/promise");
+const { Sequelize } = require("sequelize");
 
 // Configuración de la conexión a la base de datos
-const connection = mysql
-  .createConnection({
-    host: "localhost",
-    user: "root",
-    password: "AdminUser",
-  })
-  .then((connection) => {
-    // Nombre de la base de datos que quieres crear
-    const databaseName = "my_database";
+const sequelize = new Sequelize("my_database", "root", "AdminUser", {
+  host: "localhost",
+  dialect: "mysql",
+});
 
-    // Consulta SQL para crear la base de datos si aún no existe
-    const createDatabaseQuery = `CREATE DATABASE IF NOT EXISTS ${databaseName}`;
+// Función que ejecuta la consulta SQL para crear la base de datos si aún no existe
+async function createDatabase() {
+  try {
+    await sequelize.query("CREATE DATABASE IF NOT EXISTS my_database");
+    console.log("Base de datos 'my_database' creada exitosamente");
+  } catch (error) {
+    console.error("Error al crear la base de datos 'my_database':", error);
+  } finally {
+    // Cierra la conexión a la base de datos
+    await sequelize.close();
+  }
+}
 
-    // Función que ejecuta la consulta SQL para crear la base de datos
-    async function createDatabase() {
-      try {
-        await connection.query(createDatabaseQuery);
-        console.log(`Base de datos '${databaseName}' creada exitosamente`);
-      } catch (error) {
-        console.error(
-          `Error al crear la base de datos '${databaseName}':`,
-          error
-        );
-      } finally {
-        // Cierra la conexión a la base de datos
-        await connection.end();
-      }
-    }
+// Ejecuta la función para crear la base de datos
+createDatabase();
 
-    // Ejecuta la función para crear la base de datos
-    createDatabase();
-  })
-  .catch((error) => {
-    console.error("Error al conectar a la base de datos:", error);
-  });
-module.exports = connection;
+module.exports = sequelize;
