@@ -14,9 +14,24 @@
   }
 
   .pinlogo{
-    width: 70px;
-    height: 70px;
+    width: 100px;
+    height: 100px;
   }
+
+  .logocontainer{
+    text-align: center;
+    display: flex;
+    padding-top: 20px;
+    min-height: 15vh;
+    align-items: center;
+    justify-content: center;
+
+  }
+
+  .containerUpload{
+    padding-top:75px;
+  }
+
   
   @media screen and (min-width: 600px) {
     .auth-form-container {
@@ -47,6 +62,8 @@
     cursor: pointer;
     color: #0687b9;
   }
+
+
   
   .link-btn {
     background: none;

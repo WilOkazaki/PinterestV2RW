@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "../assets/styles/App.css";
 
 function Upload() {
   const [file, setFile] = useState(null);
@@ -32,38 +33,41 @@ function Upload() {
   };
 
   return (
-    <div>
-      <nav className="navbar navbar-dark bg-dark">
-        <div className="container">
-          <a href="" className="navbar-brand">
-            Image App
-          </a>
-        </div>
-      </nav>
 
-      <div className="container mt-5">
-        <div className="card p-3">
-          <div className="row">
-            <div className="col-10">
-              <input
-                id="fileinput"
-                onChange={selectedHandler}
-                className="form-control"
-                type="file"
-              />
+    <div class="containerUpload">
+          <nav className="">
+            <div className="container">
+              <a href="" className="navbar-brand">
+                <div className="logocontainer">
+                  <img  className="pinlogo" src="https://i.ibb.co/GRXcWmx/pinterest.png " alt="" />
+                </div>
+              </a>
             </div>
-            <div className="col-2">
-              <button
-                onClick={setHandler}
-                type="button"
-                className="btn btn-primary col-12"
-              >
-                Subir
-              </button>
+          </nav>
+
+          <div className="container mt-5">
+            <div className="card p-3">
+              <div className="row">
+                <div className="col-10">
+                  <input
+                    id="fileinput"
+                    onChange={selectedHandler}
+                    className="form-control"
+                    type="file"
+                  />
+                </div>
+                <div className="col">
+                  <button
+                    onClick={setHandler}
+                    type="button"
+                    className="btn btn-primary col-12"
+                  >
+                    Subir
+                  </button>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-      </div>
+          </div>        
     </div>
   );
 }
