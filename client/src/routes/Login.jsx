@@ -1,12 +1,20 @@
 import React, { useState } from "react";
+import axios from 'axios'
 
 export const Login = (props) => {
     const [email, setEmail] = useState('');
     const [pass, setPass] = useState('');
+    function logearse(email, password){
+            axios.post('http://localhost:3030/login',{email:email, password:password})
+            .then(response =>{
+                console.log(response.data)
+            }).catch(error =>console.log(error))
+    }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async(e) => {
         e.preventDefault();
-        console.log(email);
+        console.log(email,pass);
+        logearse(email,pass)
     }
 
     return (
@@ -17,9 +25,9 @@ export const Login = (props) => {
             <h2>Login</h2>
             <form className="login-form" onSubmit={handleSubmit}>
                 <label htmlFor="email">email</label>
-                <input value={email} onChange={(e) => setEmail(e.target.value)}type="email" placeholder="@gmail.com" id="email" name="email" />
+                <input value={email} onChange={(e) => setEmail(e.target.value)}type="email" placeholder="@gmail.com" id="email" name="email" required/>
                 <label htmlFor="password">contraseña</label>
-                <input value={pass} onChange={(e) => setPass(e.target.value)} type="password" placeholder="********" id="password" name="password" />
+                <input value={pass} onChange={(e) => setPass(e.target.value)} type="password" placeholder="********" id="password" name="password" required/>
                 <button type="submit">Inicia sesión</button>
             </form>
             <button className="link-btn" onClick={() => props.onFormSwitch('register')}>No tienes una cuenta? Registrate aqui.</button>
