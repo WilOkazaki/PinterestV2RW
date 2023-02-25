@@ -1,5 +1,6 @@
 //Requerimientos
 const express = require("express");
+const multer = require("multer");
 const User = require("../models/user");
 const Image = require("../models/imagenes");
 const jwt = require("jsonwebtoken");
@@ -51,4 +52,21 @@ router.post("/logout", (req, res) => {
   // Devolver una respuesta al cliente
   res.json({ message: "Sesión cerrada exitosamente" });
 }); */
+
+//Manejador de imagenes
+//Guardo la imagen
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "./dataBase/original");
+  },
+  filename: (req, file, cb) => {
+    const ext = file.originalname.split(".").pop();
+    cb(null, `${Date.now()}.${ext}`);
+  },
+});
+const upload = multer({ storage });
+
+router.post("/upload", upload.single("file"), async (req, res) => {
+  res.send({ data: "imagen cargada" });
+});
 module.exports = router;
