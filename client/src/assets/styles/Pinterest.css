@@ -230,7 +230,7 @@
   }
   
   .pin.large{
-      grid-row-end: span 45;
+      grid-row-end: span 37;
   }
 
   .pin2.small{
@@ -242,7 +242,7 @@
 }
 
 .pin2.large{
-    grid-row-end: span 45;
+    grid-row-end: span 37;
 }
   
   @media screen and (max-width: 480px){
