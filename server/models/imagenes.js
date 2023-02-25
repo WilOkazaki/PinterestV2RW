@@ -7,9 +7,13 @@ const Image = sequelize.define("Image", {
     type: DataTypes.STRING,
     allowNull: false,
   },
+  titulo: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
   description: {
     type: DataTypes.STRING,
-    allowNull: true,
+    allowNull: false,
   },
   date: {
     type: DataTypes.DATE,

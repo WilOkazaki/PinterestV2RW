@@ -27,7 +27,9 @@ const User = sequelize.define(
   {
     hooks: {
       beforeCreate: (user) => {
-        user._id = uuidv4();
+        if (!user._id) {
+          user._id = uuidv4();
+        }
       },
     },
   }

@@ -1,6 +1,9 @@
 //Requerimientos
 const express = require("express");
 const multer = require("multer");
+const sharp = require("sharp");
+const path = require("path");
+const fs = require("fs");
 const User = require("../models/user");
 const Image = require("../models/imagenes");
 const jwt = require("jsonwebtoken");
@@ -54,7 +57,7 @@ router.post("/logout", (req, res) => {
 }); */
 
 //Manejador de imagenes
-//Guardo la imagen
+//Configuracion
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, "./dataBase/original");
@@ -65,8 +68,19 @@ const storage = multer.diskStorage({
   },
 });
 const upload = multer({ storage });
-
-router.post("/upload", upload.single("file"), async (req, res) => {
+const helperImg = (filePath, fileName, size = 300) => {
+  const optimizePath = path.join(__dirname, "..", "dataBase", "optimize");
+  if (!fs.existsSync(optimizePath)) {
+    fs.mkdirSync(optimizePath);
+  }
+  const optimizeFile = path.join(optimizePath, fileName);
+  return sharp(filePath).resize(size).toFile(optimizeFile);
+};
+//RUTAS
+router.post("/upload", upload.single("file"), (req, res) => {
+  const filePath = path.resolve(req.file.path);
+  console.log(filePath, req.file.filename);
+  helperImg(filePath, `resize-${req.file.filename}`, 300);
   res.send({ data: "imagen cargada" });
 });
 module.exports = router;

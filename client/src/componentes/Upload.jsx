@@ -2,8 +2,11 @@ import React, { useState } from "react";
 import "../assets/styles/App.css";
 import axios from "axios";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 function Upload() {
   const [file, setFile] = useState(null);
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
   const formdata = new FormData();
   const selectedHandler = (e) => {
     setFile(e.target.files[0]);
@@ -28,7 +31,7 @@ function Upload() {
     <div className="containerUpload">
       <nav className="">
         <div className="container">
-          <a href="" className="navbar-brand">
+          <Link to={"/pinterest"} className="navbar-brand">
             <div className="logocontainer">
               <img
                 className="pinlogo"
@@ -36,7 +39,7 @@ function Upload() {
                 alt=""
               />
             </div>
-          </a>
+          </Link>
         </div>
       </nav>
 
@@ -51,6 +54,23 @@ function Upload() {
                 type="file"
                 accept="image/*"
               />
+              <input
+                id="title"
+                type="text"
+                placeholder="Titulo"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                autoFocus
+              />
+              <textarea
+                name="contenido"
+                id="content"
+                placeholder="Danos una descripción de la imagen..."
+                value={content}
+                onChange={(e) => setContent(e.target.value)}
+                cols="50"
+                rows="5"
+              ></textarea>
             </div>
             <div className="col">
               <button

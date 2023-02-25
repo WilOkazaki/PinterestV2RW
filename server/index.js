@@ -3,7 +3,6 @@ const express = require("express");
 const morgan = require("morgan");
 /* const path = require("path"); */
 const cors = require("cors");
-const sharp = require("sharp");
 const router = require("./Routes/routes");
 
 //Inicio de Exprees
