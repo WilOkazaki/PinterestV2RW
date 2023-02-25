@@ -79,8 +79,33 @@ const helperImg = (filePath, fileName, size = 300) => {
 //RUTAS
 router.post("/upload", upload.single("file"), (req, res) => {
   const filePath = path.resolve(req.file.path);
-  console.log(filePath, req.file.filename);
-  helperImg(filePath, `resize-${req.file.filename}`, 300);
-  res.send({ data: "imagen cargada" });
+  const { titulo, description } = req.body;
+  const optimizePath = path.join(__dirname, "..", "dataBase", "optimize");
+  const fileNameOptimize = `resize-${req.file.filename}`;
+  const filePathOptimize = path.join(optimizePath, fileNameOptimize);
+  helperImg(filePath, fileNameOptimize, 300).then(() => {
+    const image = {
+      filename: req.file.filename,
+      titulo,
+      description,
+      path: filePathOptimize,
+    };
+    Image.create(image)
+      .then(() => {
+        res.send({ data: "imagen cargada" });
+      })
+      .catch((error) => {
+        console.error("Error al guardar en la base de datos: " + error);
+        res
+          .status(500)
+          .send({ error: "Error al guardar la imagen en la base de datos" });
+      });
+  });
 });
+
+router.get("/images", async (req, res) => {
+  const photos = await Image.findAll();
+  res.json(photos);
+});
+
 module.exports = router;

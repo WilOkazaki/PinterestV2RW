@@ -15,6 +15,10 @@ const Image = sequelize.define("Image", {
     type: DataTypes.STRING,
     allowNull: false,
   },
+  path: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
   date: {
     type: DataTypes.DATE,
     allowNull: false,

@@ -8,6 +8,7 @@ function enviarDatos(user,email,password){
         password: password
     }).then(response=>{
         console.log(response.data);
+        window.location.href = "/pinterest";
     }).catch(error=>console.log(error));
 }
 

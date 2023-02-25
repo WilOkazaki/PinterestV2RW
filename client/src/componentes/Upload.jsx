@@ -18,6 +18,8 @@ function Upload() {
       return;
     }
     formdata.append("file", file);
+    formdata.append('titulo',title)
+    formdata.append('description',content);
     axios
       .post("http://localhost:3030/upload", formdata)
       .then((res) => console.log(res.data))
