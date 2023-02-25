@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Data from "./Data";
 import {
   AddAPhoto,
   ExitToAppRounded,
@@ -9,6 +10,7 @@ import { IconButton } from "@mui/material";
 import MenuContenedor from "./MenuContenedor";
 import Pin from "./Pin";
 import "../assets/styles/Pinterest.css";
+import axios from "axios";
 
 function Pinterest() {
   useEffect(() => {
@@ -21,6 +23,21 @@ function Pinterest() {
 
     allIcon.forEach((n) => n.addEventListener("click", activarMenuActive));
   }, []);
+
+  const handleLogout = async () => {
+    window.location.href = "/";
+    /*  try {
+      // Llamar a la ruta /logout en el servidor para eliminar el token
+      await axios.post("http://localhost:3030/logout");
+      // Redirigir al usuario a la página de inicio de sesión
+      console.log("Token eliminado");
+    } catch (error) {
+      console.error(error);
+    } */
+  };
+  const handPhoto = () => {
+    window.location.href = "/upload";
+  };
 
   return (
     <div className="Pinterest">
@@ -37,17 +54,15 @@ function Pinterest() {
               <MenuContenedor icon={<Person />} />
             </IconButton>
           </div>
-          <a href="#!">
-            <IconButton>
-              <MenuContenedor icon={<AddAPhoto />} />
-            </IconButton>
-          </a>
+          <IconButton onClick={handPhoto}>
+            <MenuContenedor icon={<AddAPhoto />} />
+          </IconButton>
           <IconButton>
             <MenuContenedor icon={<FavoriteRounded />} />
           </IconButton>
           <div></div>
           <div>
-            <IconButton>
+            <IconButton onClick={handleLogout}>
               <MenuContenedor icon={<ExitToAppRounded />} />
             </IconButton>
           </div>
@@ -67,12 +82,20 @@ function Pinterest() {
         </div>
 
         <div className="contenedorMain">
-          <Pin pinSize={"small"} />
-          <Pin pinSize={"medium"} />
-          <Pin pinSize={"large"} />
-          <Pin pinSize={"small"} />
-          <Pin pinSize={"medium"} />
-          <Pin pinSize={"large"} />
+
+          {
+            Data && Data.map((data) => 
+            <Pin 
+            key={data.id}
+            pinSize={data.size}
+            imgSrc={data.imgSrc}
+            name={data.name}
+            link={data.link}
+             />)
+          }
+
+
+        
         </div>
       </div>
     </div>
