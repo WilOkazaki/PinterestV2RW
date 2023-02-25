@@ -20,6 +20,7 @@ app.use(express.json());
 app.use(cors());
 
 //Requerimiento y uso de Rutas
+
 app.use(router);
 
 //Static Files

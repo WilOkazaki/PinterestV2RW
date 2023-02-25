@@ -4,6 +4,7 @@ const { Sequelize } = require("sequelize");
 const sequelize = new Sequelize("my_database", "root", "AdminUser", {
   host: "localhost",
   dialect: "mysql",
+  logging: false,
 });
 //nombre de la base de datos
 const databaseName = "my_database";
@@ -18,7 +19,7 @@ async function createDatabase() {
     console.error(`Error al crear la base de datos '${databaseName}':`, error);
   } finally {
     // Cierra la conexión a la base de datos
-    await sequelize.close();
+    /* await sequelize.close(); */
   }
 }
 // Ejecuta la función para crear la base de datos
