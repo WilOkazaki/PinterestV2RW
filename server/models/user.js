@@ -1,22 +1,37 @@
 // Importar Sequelize y la conexión a la base de datos
 const { Sequelize, DataTypes } = require("sequelize");
 const sequelize = require("../database");
+const { v4: uuidv4 } = require("uuid");
 // Modelo de la tabla de usuarios
-const User = sequelize.define("User", {
-  username: {
-    type: DataTypes.STRING,
-    allowNull: false,
+const User = sequelize.define(
+  "User",
+  {
+    _id: {
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
+    },
+    username: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true,
+    },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
   },
-  email: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    unique: true,
-  },
-  password: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-});
+  {
+    hooks: {
+      beforeCreate: (user) => {
+        user._id = uuidv4();
+      },
+    },
+  }
+);
 
 // Definir la relación entre las tablas
 /* User.hasMany(Image); */

@@ -6,7 +6,7 @@ import { IconButton } from "@mui/material";
 function Pin({ pinSize }) {
   const [imageList, setImageList] = useState([]);
 
-  useEffect(() => {
+  /* useEffect(() => {
     //posible server
     fetch("http://localhost:8000/images/get")
       .then((res) => res.json())
@@ -14,7 +14,7 @@ function Pin({ pinSize }) {
       .catch((err) => {
         console.error(err);
       });
-  }, []);
+  }, []); */
 
   return (
     <div className={`pin ${pinSize}`}>

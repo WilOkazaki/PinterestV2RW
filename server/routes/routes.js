@@ -1,7 +1,11 @@
+//Requerimientos
 const express = require("express");
 const User = require("../models/user");
 const Image = require("../models/imagenes");
-
+const jwt = require("jsonwebtoken");
+const { v4: uuidv4 } = require("uuid");
+//Constantes
+const secretKey = uuidv4();
 const router = express.Router();
 
 router.get("/", (req, res) => {
@@ -36,8 +40,15 @@ router.post("/login", async (req, res) => {
   if (user.password !== password) {
     return res.status(401).json({ message: "Contraseña incorrecta" });
   } else {
-    return res.json({ message: "Inicio de sesion exitoso" });
+    const token = jwt.sign({ userId: user.id }, secretKey, { expiresIn: "1h" });
+    return res.json({ token, message: "Inicio de sesion exitoso" });
   }
 });
-
+/* //Logout
+router.post("/logout", (req, res) => {
+  // Eliminar el token de la sesión
+  req.session.token = null;
+  // Devolver una respuesta al cliente
+  res.json({ message: "Sesión cerrada exitosamente" });
+}); */
 module.exports = router;

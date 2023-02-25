@@ -3,8 +3,6 @@ import ReactDOM from "react-dom/client";
 import "./assets/styles/index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./routes/Home";
-//import { Login } from './routes/Login'
-//import { Register } from './routes/Register'
 import Pinterest from "./componentes/Pinterest";
 import Upload from "./componentes/Upload";
 

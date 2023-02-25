@@ -9,6 +9,7 @@ import { IconButton } from "@mui/material";
 import MenuContenedor from "./MenuContenedor";
 import Pin from "./Pin";
 import "../assets/styles/Pinterest.css";
+import axios from "axios";
 
 function Pinterest() {
   useEffect(() => {
@@ -21,6 +22,17 @@ function Pinterest() {
 
     allIcon.forEach((n) => n.addEventListener("click", activarMenuActive));
   }, []);
+
+  /* const handleLogout = async () => {
+    try {
+      // Llamar a la ruta /logout en el servidor para eliminar el token
+      await axios.post("http://localhost:3030/logout");
+      // Redirigir al usuario a la página de inicio de sesión
+      console.log("Token eliminado");
+    } catch (error) {
+      console.error(error);
+    }
+  }; */
 
   return (
     <div className="Pinterest">
