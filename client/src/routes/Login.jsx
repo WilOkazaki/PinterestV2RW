@@ -4,7 +4,6 @@ import axios from "axios";
 export const Login = (props) => {
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
-
   function logearse(email, password) {
     axios
       .post("http://localhost:3030/login", { email: email, password: password })
@@ -12,6 +11,7 @@ export const Login = (props) => {
         console.log(response.data);
         // Guardar token en localStorage
         localStorage.setItem("token", response.data.token);
+        window.location.href = "/pinterest";
       })
       .catch((error) => console.log(error));
   }
