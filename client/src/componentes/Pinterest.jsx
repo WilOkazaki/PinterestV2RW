@@ -10,7 +10,6 @@ import MenuContenedor from "./MenuContenedor";
 import Pin from "./Pin";
 import Favorite from "./Favorite";
 import "../assets/styles/Pinterest.css";
-import axios from "axios";
 
 function Pinterest() {
   useEffect(() => {

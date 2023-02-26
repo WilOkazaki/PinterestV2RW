@@ -107,6 +107,25 @@ router.get("/images", async (req, res) => {
   const photos = await Image.findAll();
   res.json(photos);
 });
+//Busca imagenes por titulo
+/* router.get("/image/:titulo", (req, res) => {
+  const titulo = req.params.titulo;
+  Image.findOne({ where: { titulo: titulo } })
+    .then((image) => {
+      if (image) {
+        res.send(image);
+      } else {
+        res.status(404).send({ error: "Imagen no encontrada" });
+      }
+    })
+    .catch((error) => {
+      console.error("Error al buscar la imagen en la tabla Image:", error);
+      res
+        .status(500)
+        .send({ error: "Error al buscar la imagen en la base de datos" });
+    });
+}); */
+
 //Crea favoritas
 router.post("/Favorite/:id", (req, res) => {
   const i = req.params.id;
