@@ -6,6 +6,7 @@ const path = require("path");
 const fs = require("fs");
 const User = require("../models/user");
 const Image = require("../models/imagenes");
+const ImagenFav = require("../models/imagenFav");
 const jwt = require("jsonwebtoken");
 const { v4: uuidv4 } = require("uuid");
 //Constantes
@@ -112,4 +113,44 @@ router.get("/images", async (req, res) => {
   res.json(photos);
 });
 
+router.post("/Favorite/:id", (req, res) => {
+  const i = req.params.id;
+  //Busqueda
+  Image.findOne({ where: { _id: i } })
+    .then((image) => {
+      if (image) {
+        //Creamos una instancia para la imagen favorita
+        ImagenFav.create({
+          filename: image.filename,
+          titulo: image.titulo,
+          description: image.description,
+          path: image.path,
+        })
+          .then(() => {
+            res.send({ message: "Imagen agregada a favoritos" });
+          })
+          .catch((error) => {
+            console.error(
+              "Error al guardar la imagen en la tabla ImagenFav:",
+              error
+            );
+            res
+              .status(500)
+              .send({ error: "Error al agregar la imagen a favoritos" });
+          });
+      } else {
+        res.status(404).send({ error: "Imagen no encontrada" });
+      }
+    })
+    .catch((error) => {
+      console.error("Error al buscar la imagen en la tabla Image:", error);
+      res
+        .status(500)
+        .send({ error: "Error al buscar la imagen en la base de datos" });
+    });
+});
+router.get("/imgFav", async (req, res) => {
+  const photosF = await ImagenFav.findAll();
+  res.json(photosF);
+});
 module.exports = router;

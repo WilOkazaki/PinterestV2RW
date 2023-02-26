@@ -5,20 +5,20 @@ import { IconButton } from "@mui/material";
 import axios from "axios";
 function Pin({ pinSize }) {
   const [photos, setPhotos] = useState([]);
-
   const getPhotos = async () => {
     try {
       const response = await axios.get("http://localhost:3030/images");
       setPhotos(response.data);
-      console.log(photos);
     } catch (error) {
       console.error(error);
     }
   };
-  const prueba = (a) => {
-    console.log(a);
+  const AddToFav = async (i) => {
+    await axios
+      .post(`http://localhost:3030/Favorite/${i}`)
+      .then((res) => console.log(res.data))
+      .catch((err) => console.log(err));
   };
-
   useEffect(() => {
     getPhotos();
   }, []);
@@ -38,7 +38,7 @@ function Pin({ pinSize }) {
               <div className="busqueda">
                 <IconButton
                   className="favorito"
-                  onClick={prueba(`http://localhost:3030${photo.path}`)}
+                  onClick={() => AddToFav(photo._id)}
                 >
                   <MenuContenedor icon={<FavoriteRounded />} />
                 </IconButton>
