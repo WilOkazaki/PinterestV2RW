@@ -79,14 +79,14 @@ function Pinterest() {
             />
           </div>
         </div>
-
+        {/* AQUI HACEMOS CONDICIONAL */}
         <div className="contenedorMain">
-          <Pin pinSize={"small"} />
+          {/* <Pin pinSize={"small"} />
           <Pin pinSize={"medium"} />
           <Pin pinSize={"large"} />
-          <Pin pinSize={"small"} />
+          <Pin pinSize={"small"} /> */}
           <Pin pinSize={"medium"} />
-          <Pin pinSize={"large"} />
+          {/* <Pin pinSize={"large"} /> */}
         </div>
       </div>
     </div>

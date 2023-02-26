@@ -74,21 +74,25 @@ const helperImg = (filePath, fileName, size = 300) => {
     fs.mkdirSync(optimizePath);
   }
   const optimizeFile = path.join(optimizePath, fileName);
-  return sharp(filePath).resize(size).toFile(optimizeFile);
+  return sharp(filePath).resize(size, size).toFile(optimizeFile);
 };
+// Servir carpeta pública para las imágenes optimizadas
+router.use(
+  "/public",
+  express.static(path.join(__dirname, "..", "dataBase", "optimize"))
+);
 //RUTAS
 router.post("/upload", upload.single("file"), (req, res) => {
   const filePath = path.resolve(req.file.path);
   const { titulo, description } = req.body;
   const optimizePath = path.join(__dirname, "..", "dataBase", "optimize");
   const fileNameOptimize = `resize-${req.file.filename}`;
-  const filePathOptimize = path.join(optimizePath, fileNameOptimize);
-  helperImg(filePath, fileNameOptimize, 300).then(() => {
+  helperImg(filePath, fileNameOptimize, 1000).then(() => {
     const image = {
       filename: req.file.filename,
       titulo,
       description,
-      path: filePathOptimize,
+      path: `/public/${fileNameOptimize}`, // Almacenar URL pública en path
     };
     Image.create(image)
       .then(() => {

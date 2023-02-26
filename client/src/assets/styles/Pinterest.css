@@ -74,7 +74,7 @@
   }
   
   h3{
-     color: whitesmoke;
+    color: whitesmoke;
   }
   
   
@@ -170,39 +170,104 @@
       height: 50px;
       background: rgb(255, 255, 255, 0.2);
       position: absolute;
-      bottom: 0;
+      bottom: -55px;
       backdrop-filter: blur(5px);
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 0px 15px;
    }
-  
-   .busqueda img{
-      width: 25px;
+
+   .pin2 .contenidoPin{
+    width: 100%;
+    height: 50px;
+    background: rgb(255, 255, 255, 0.2);
+    position: absolute;
+    bottom: -55px;
+    backdrop-filter: blur(5px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 15px;
+ }
+
+   .pin:hover .contenidoPin{
+    bottom: 0;
+    transition: bottom 0.3s;
+   }
+
+   .pin2:hover .contenidoPin{
+    bottom: 0;
+    transition: bottom 0.3s;
+   }
+
+
+   .pin .contenidoPin h3{
+    color: whitesmoke;
+    font-size: 18px;
+    font-weight: 500;
+   }
+
+   .pin2 .contenidoPin h3{
+    color: whitesmoke;
+    font-size: 18px;
+    font-weight: 500;
    }
   
- 
-   
-  
-  .pin.small{
-      grid-row-end: span 26;
-  }
+.busqueda img{
+    width: 25px;
+}
+
+.pin.small{
+    grid-row-end: span 26;
+    }
   
   .pin.medium{
       grid-row-end: span 33;
   }
   
   .pin.large{
-      grid-row-end: span 45;
+      grid-row-end: span 37;
   }
+
+  .pin2.small{
+    grid-row-end: span 26;
+}
+
+.pin2.medium{
+    grid-row-end: span 33;
+}
+
+.pin2.large{
+    grid-row-end: span 37;
+}
   
+  @media screen and (max-width: 480px){
+    .App{
+        padding: 0px 20px;
+    }
+
+    .menuContenedor{
+        padding: 30px 0;
+        width: unset;
+        left: 15px;
+    }
+
+    main{
+        margin-left: 75px;
+    }
+  }
+
+  
+
+
+
   /*.card{
       width: 252px;
       height: 512px;
       border-radius: 16px;
       position: relative;
-      overflow: hidden;
+      overflow: hi:dden;
       background-color: royalblue;
   }
   .pin_title{
@@ -248,6 +313,4 @@
       height: 32px;
       background-color: white;
   }*/
-  
-
   
