@@ -3,29 +3,29 @@ import { FavoriteRounded } from "@mui/icons-material";
 import MenuContenedor from "./MenuContenedor";
 import { IconButton } from "@mui/material";
 import axios from "axios";
-function Pin({ pinSize }) {
-  const [photos, setPhotos] = useState([]);
-  const getPhotos = async () => {
+function Favorite({ pinSize }) {
+  const [photosF, setPhotosF] = useState([]);
+  const getphotosF = async () => {
     try {
-      const response = await axios.get("http://localhost:3030/images");
-      setPhotos(response.data);
+      const response = await axios.get("http://localhost:3030/imgFav");
+      setPhotosF(response.data);
     } catch (error) {
       console.error(error);
     }
   };
-  const AddToFav = async (i) => {
+  const RemoveToFav = async (i) => {
     await axios
-      .post(`http://localhost:3030/Favorite/${i}`)
+      .delete(`http://localhost:3030/Favorite/${i}`)
       .then((res) => console.log(res.data))
       .catch((err) => console.log(err));
   };
   useEffect(() => {
-    getPhotos();
+    getphotosF();
   }, []);
 
   return (
     <>
-      {photos.map((photo) => (
+      {photosF.map((photo) => (
         <div key={photo._id} className={`pin ${pinSize}`}>
           <div className="Pin2">
             <img
@@ -38,7 +38,9 @@ function Pin({ pinSize }) {
               <div className="busqueda">
                 <IconButton
                   className="favorito"
-                  onClick={() => AddToFav(photo._id)}
+                  onClick={() => {
+                    RemoveToFav(photo._id);
+                  }}
                 >
                   <MenuContenedor icon={<FavoriteRounded />} />
                 </IconButton>
@@ -51,4 +53,4 @@ function Pin({ pinSize }) {
   );
 }
 
-export default Pin;
+export default Favorite;

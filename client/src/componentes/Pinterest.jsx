@@ -8,13 +8,13 @@ import {
 import { IconButton } from "@mui/material";
 import MenuContenedor from "./MenuContenedor";
 import Pin from "./Pin";
+import Favorite from "./Favorite";
 import "../assets/styles/Pinterest.css";
 import axios from "axios";
 
 function Pinterest() {
   useEffect(() => {
     const allIcon = document.querySelectorAll(".iconContenedor");
-
     function activarMenuActive() {
       allIcon.forEach((n) => n.classList.remove("active"));
       this.classList.add("active");
@@ -22,17 +22,21 @@ function Pinterest() {
 
     allIcon.forEach((n) => n.addEventListener("click", activarMenuActive));
   }, []);
-
+  const [toogle, setToogle] = useState(true);
+  const img = () => {
+    setToogle(true);
+  };
+  const fav = () => {
+    setToogle(false);
+  };
   const handleLogout = async () => {
-    window.location.href = "/";
-    /*  try {
-      // Llamar a la ruta /logout en el servidor para eliminar el token
-      await axios.post("http://localhost:3030/logout");
-      // Redirigir al usuario a la página de inicio de sesión
+    try {
+      localStorage.setItem("token", null);
+      window.location.href = "/";
       console.log("Token eliminado");
     } catch (error) {
       console.error(error);
-    } */
+    }
   };
   const handPhoto = () => {
     window.location.href = "/upload";
@@ -49,14 +53,14 @@ function Pinterest() {
 
         <div className="subMenu">
           <div>
-            <IconButton>
+            <IconButton onClick={img}>
               <MenuContenedor icon={<Person />} />
             </IconButton>
           </div>
           <IconButton onClick={handPhoto}>
             <MenuContenedor icon={<AddAPhoto />} />
           </IconButton>
-          <IconButton>
+          <IconButton onClick={fav}>
             <MenuContenedor icon={<FavoriteRounded />} />
           </IconButton>
           <div></div>
@@ -81,12 +85,11 @@ function Pinterest() {
         </div>
         {/* AQUI HACEMOS CONDICIONAL */}
         <div className="contenedorMain">
-          {/* <Pin pinSize={"small"} />
-          <Pin pinSize={"medium"} />
-          <Pin pinSize={"large"} />
-          <Pin pinSize={"small"} /> */}
-          <Pin pinSize={"medium"} />
-          {/* <Pin pinSize={"large"} /> */}
+          {toogle ? (
+            <Pin pinSize={"medium"} />
+          ) : (
+            <Favorite pinSize={"medium"} />
+          )}
         </div>
       </div>
     </div>

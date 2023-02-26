@@ -16,10 +16,6 @@ const Image = sequelize.define("Image", {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  description: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
   path: {
     type: DataTypes.STRING,
     allowNull: false,
@@ -30,9 +26,7 @@ const Image = sequelize.define("Image", {
     defaultValue: Sequelize.NOW,
   },
 });
-//Relacion de la tabla
-/* Image.belongsTo(User); */
-// Sincronizar el modelo con la base de datos
+
 sequelize
   .sync({ alter: true })
   .then(() => {

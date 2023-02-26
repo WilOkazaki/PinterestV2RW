@@ -16,10 +16,7 @@ const ImagenFav = sequelize.define("ImagenFav", {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  description: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
+
   path: {
     type: DataTypes.STRING,
     allowNull: false,

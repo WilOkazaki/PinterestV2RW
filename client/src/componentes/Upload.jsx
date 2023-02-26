@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 function Upload() {
   const [file, setFile] = useState(null);
   const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
   const formdata = new FormData();
   const selectedHandler = (e) => {
     setFile(e.target.files[0]);
@@ -18,8 +17,7 @@ function Upload() {
       return;
     }
     formdata.append("file", file);
-    formdata.append('titulo',title)
-    formdata.append('description',content);
+    formdata.append("titulo", title);
     axios
       .post("http://localhost:3030/upload", formdata)
       .then((res) => console.log(res.data))
@@ -50,13 +48,6 @@ function Upload() {
           <div className="row">
             <div className="col-10">
               <input
-                id="fileinput"
-                onChange={selectedHandler}
-                className="form-control"
-                type="file"
-                accept="image/*"
-              />
-              <input
                 id="title"
                 type="text"
                 placeholder="Titulo"
@@ -64,15 +55,13 @@ function Upload() {
                 onChange={(e) => setTitle(e.target.value)}
                 autoFocus
               />
-              <textarea
-                name="contenido"
-                id="content"
-                placeholder="Danos una descripción de la imagen..."
-                value={content}
-                onChange={(e) => setContent(e.target.value)}
-                cols="50"
-                rows="5"
-              ></textarea>
+              <input
+                id="fileinput"
+                onChange={selectedHandler}
+                className="form-control"
+                type="file"
+                accept="image/*"
+              />
             </div>
             <div className="col">
               <button

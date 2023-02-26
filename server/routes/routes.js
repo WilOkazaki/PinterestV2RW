@@ -21,6 +21,7 @@ router.get("/usuarios", async (req, res) => {
   res.json(users);
 });
 //Funciones
+
 //Registro de usuarios
 router.post("/usuarios", async (req, res) => {
   try {
@@ -35,6 +36,7 @@ router.post("/usuarios", async (req, res) => {
     res.status(500).json({ error: "Error al crear el usuario" });
   }
 });
+
 //Logins
 router.post("/login", async (req, res) => {
   const { email, password } = req.body;
@@ -49,13 +51,6 @@ router.post("/login", async (req, res) => {
     return res.json({ token, message: "Inicio de sesion exitoso" });
   }
 });
-/* //Logout
-router.post("/logout", (req, res) => {
-  // Eliminar el token de la sesión
-  req.session.token = null;
-  // Devolver una respuesta al cliente
-  res.json({ message: "Sesión cerrada exitosamente" });
-}); */
 
 //Manejador de imagenes
 //Configuracion
@@ -83,16 +78,16 @@ router.use(
   express.static(path.join(__dirname, "..", "dataBase", "optimize"))
 );
 //RUTAS
+//Crea imagen
 router.post("/upload", upload.single("file"), (req, res) => {
   const filePath = path.resolve(req.file.path);
-  const { titulo, description } = req.body;
+  const { titulo } = req.body;
   const optimizePath = path.join(__dirname, "..", "dataBase", "optimize");
   const fileNameOptimize = `resize-${req.file.filename}`;
   helperImg(filePath, fileNameOptimize, 1000).then(() => {
     const image = {
       filename: req.file.filename,
       titulo,
-      description,
       path: `/public/${fileNameOptimize}`, // Almacenar URL pública en path
     };
     Image.create(image)
@@ -107,12 +102,12 @@ router.post("/upload", upload.single("file"), (req, res) => {
       });
   });
 });
-
+//Consulta imagenes
 router.get("/images", async (req, res) => {
   const photos = await Image.findAll();
   res.json(photos);
 });
-
+//Crea favoritas
 router.post("/Favorite/:id", (req, res) => {
   const i = req.params.id;
   //Busqueda
@@ -123,7 +118,6 @@ router.post("/Favorite/:id", (req, res) => {
         ImagenFav.create({
           filename: image.filename,
           titulo: image.titulo,
-          description: image.description,
           path: image.path,
         })
           .then(() => {
@@ -149,8 +143,32 @@ router.post("/Favorite/:id", (req, res) => {
         .send({ error: "Error al buscar la imagen en la base de datos" });
     });
 });
+//Consulta favoritos
 router.get("/imgFav", async (req, res) => {
   const photosF = await ImagenFav.findAll();
   res.json(photosF);
 });
+//Elimina favoritos
+router.delete("/Favorite/:id", (req, res) => {
+  const i = req.params.id;
+  //Eliminación
+  ImagenFav.destroy({ where: { _id: i } })
+    .then((rowsDeleted) => {
+      if (rowsDeleted === 1) {
+        res.send({ message: "Imagen eliminada de favoritos" });
+      } else {
+        res.status(404).send({ error: "Imagen no encontrada" });
+      }
+    })
+    .catch((error) => {
+      console.error(
+        "Error al eliminar la imagen de la tabla ImagenFav:",
+        error
+      );
+      res
+        .status(500)
+        .send({ error: "Error al eliminar la imagen de la tabla ImagenFav" });
+    });
+});
+
 module.exports = router;
